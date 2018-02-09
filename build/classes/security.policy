@@ -1,0 +1,17 @@
+grant {
+	permission java.security.AllPermission;
+	permission java.net.SocketPermission "127.0.0.1:1099", "accept, connect, listen, resolve";
+	permission java.net.SocketPermission "*:1099-", "accept, connect, listen, resolve";
+	permission java.net.SocketPermission "localhost:1099-", "accept, connect, listen, resolve";
+	
+	permission java.io.FilePermission "<<ALL FILES>>", "read";
+	permission java.lang.RuntimePermission "getenv.SYSTEMDRIVE";
+	
+	permission java.lang.RuntimePermission "setSecurityManager"; 
+	permission java.lang.RuntimePermission "createSecurityManager"; 
+	permission java.lang.RuntimePermission "usePolicy";
+};
+
+grant codeBase "C:/Users/Jorda/Documents/NetBeansProjects/RMI-Assignment1/src/ct414"{
+    permission java.security.AllPermission;
+};
