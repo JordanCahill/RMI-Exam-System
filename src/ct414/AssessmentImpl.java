@@ -16,6 +16,8 @@ import java.util.List;
  */
 public class AssessmentImpl implements Assessment, Serializable {
 
+    
+
     private ArrayList<Question> questions = new ArrayList<>();
     private String info;
     private Date closingDate;
@@ -42,15 +44,14 @@ public class AssessmentImpl implements Assessment, Serializable {
         int n = 0;
         while (n < 4){
             questions.add(allQs.get(n));
-            System.out.println("Q" + (n+1) + ": " + questions.get(n).getQuestionDetail());
-            System.out.println(Arrays.toString(questions.get(n).getAnswerOptions()));
-            System.out.println();
             n++;
         }
         
         
         
     }
+    
+    
     
     @Override
     public String getInformation() {
@@ -94,6 +95,10 @@ public class AssessmentImpl implements Assessment, Serializable {
         if (questionNumber<(questions.size())){
             return questions.get(questionNumber-1);
         }else throw new InvalidQuestionNumber();
+    }
+
+    String getCourseCode() {
+        return this.courseCode;
     }
 
 }
