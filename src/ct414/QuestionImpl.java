@@ -10,20 +10,21 @@ import java.io.Serializable;
  */
 public class QuestionImpl implements Question, Serializable {
 
-    private int questionNum = 1;
+    private int questionNum;
     private String question;
     private String[] questionAnswers;
     private int correctAnswer;
     
-    public QuestionImpl(String q, String[] answers, int correctAnswer){
-        this.questionNum++;
+    public QuestionImpl(int num, String q, String[] answers, int correctAns){
+        this.questionNum=num;
         this.question = q;
         this.questionAnswers = answers;
+        this.correctAnswer = correctAns;
     }
     
     @Override
     public int getQuestionNumber() {
-        return this.questionNum;
+        return questionNum-1;
     }
 
     @Override
@@ -40,6 +41,11 @@ public class QuestionImpl implements Question, Serializable {
     @Override
     public String getAnswer(int i){
         return this.questionAnswers[i];
+    }
+    
+    @Override
+    public int getCorrectAnswer(){
+        return this.correctAnswer;
     }
 
 }

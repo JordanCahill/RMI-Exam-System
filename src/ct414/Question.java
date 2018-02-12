@@ -16,5 +16,7 @@ public interface Question extends Serializable {
 	public String[] getAnswerOptions();
 
     public String getAnswer(int i);
+    
+    public int getCorrectAnswer();
 
 }

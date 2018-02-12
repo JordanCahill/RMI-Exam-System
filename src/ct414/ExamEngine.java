@@ -16,7 +16,7 @@ public class ExamEngine implements ExamServer {
 
     private ArrayList<Student> studentList = new ArrayList<>();
     private ArrayList<AssessmentImpl> assessments = new ArrayList<>();
-    private ArrayList<String> assessmentNames;
+    private ArrayList<String> assessmentNames = new ArrayList<>();
     private HashMap<Integer, Assessment> completedExams = new HashMap<>();
         
     // Constructor is required
@@ -28,9 +28,10 @@ public class ExamEngine implements ExamServer {
         Student s1 = new Student(1,"a","4BP1"); studentList.add(s1);
         Student s2 = new Student(14483208,"qwerty","4BP1"); studentList.add(s2);
         Student s3 = new Student(14424257,"password", "4BLE"); studentList.add(s3);
+        Student s4 = new Student(13837257,"pword", "4BLE"); studentList.add(s4);
         
-        AssessmentImpl exam1 = new AssessmentImpl("Quiz 1", "4BP1", 14483208); assessments.add(exam1);
-        AssessmentImpl exam2 = new AssessmentImpl("Quiz 2", "4BLE", 14483208); assessments.add(exam2);
+        AssessmentImpl exam1 = new AssessmentImpl("Quiz 1", "4BP1", 4382); assessments.add(exam1);
+        AssessmentImpl exam2 = new AssessmentImpl("Quiz 2", "4BLE", 3208); assessments.add(exam2);
         
         
     }
@@ -74,7 +75,8 @@ public class ExamEngine implements ExamServer {
                 }
             } throw new UnauthorizedAccess("Access not granted to student ID");
         } catch (Exception e){
-            throw new RemoteException();
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
@@ -111,7 +113,8 @@ public class ExamEngine implements ExamServer {
                 }
             } throw new UnauthorizedAccess("Access not granted to student ID");
         } catch (Exception e){
-            throw new RemoteException();
+            System.out.println("here");
+            //throw new RemoteException();
         }
     }
 

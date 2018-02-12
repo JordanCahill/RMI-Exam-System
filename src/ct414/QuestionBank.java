@@ -2,6 +2,7 @@
 package ct414;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 class QuestionBank {
     
     ArrayList<QuestionImpl> questions = new ArrayList<>();
+    ArrayList<QuestionImpl> questionsRand = new ArrayList<>();
+    private int numQuestions = 10;
     
     public QuestionBank(){
         
@@ -23,35 +26,54 @@ class QuestionBank {
     }
 
     private void CreateQuestionBank() {
+        
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int i=1; i<numQuestions+1; i++) { // 
+            list.add(new Integer(i));
+        }
+        Collections.shuffle(list);
+        
+            
+        
         String[] a1 = {"Dublin", "Cork", "Belfast", "Galway"}; 
-        questions.add(new QuestionImpl("What is the capital of Ireland?", a1, 0));
-        
+        questionsRand.add(new QuestionImpl(list.get(0),"What is the capital of Ireland?", a1, 0));
+
         String[] a2 = {"82", "92", "102", "112"};
-        questions.add(new QuestionImpl("How many floors does the Empire State Building have?", a2, 2));
-        
+        questionsRand.add(new QuestionImpl(list.get(1),"How many floors does the Empire State Building have?", a2, 2));
+
         String[] a3 = {"Pearse Stadium", "Stamford Bridge", "Fahy's Field", "Old Trafford"};
-        questions.add(new QuestionImpl("Where do Manchester United play their home games?", a3, 3));
-                
+        questionsRand.add(new QuestionImpl(list.get(2),"Where do Manchester United play their home games?", a3, 3));
+
         String[] a4 = {"Shannon", "Rhine", "Volga", "Tiber"};
-        questions.add(new QuestionImpl("What is the longest river in Europe?", a4, 2));
-        
+        questionsRand.add(new QuestionImpl(list.get(3),"What is the longest river in Europe?", a4, 2));
+
         String[] a5 = {"10", "12", "20", "72"};
-        questions.add(new QuestionImpl("What is the square root of 144?", a5, 1));
-        
+        questionsRand.add(new QuestionImpl(list.get(4),"What is the square root of 144?", a5, 1));
+
         String[] a6 = {"Europe", "Pacific ocean", "The mediterranean", "The moon"};
-        questions.add(new QuestionImpl("Where is the sea of tranquility?", a6, 3));
-        
+        questionsRand.add(new QuestionImpl(list.get(5),"Where is the sea of tranquility?", a6, 3));
+
         String[] a7 = {"Cretaceous", "Jurassic", "Triassic", "Paleozoic"};
-        questions.add(new QuestionImpl("Which geological age did the T-Rex live in?", a7, 0));
-        
+        questionsRand.add(new QuestionImpl(list.get(6),"Which geological age did the T-Rex live in?", a7, 0));
+
         String[] a8 = {"Apollo 7", "Apollo 9", "Apollo 11", "Apollo 13"};
-        questions.add(new QuestionImpl("Which Apollo mission landed the first humans on the Moon?", a8, 2));
-        
+        questionsRand.add(new QuestionImpl(list.get(7),"Which Apollo mission landed the first humans on the Moon?", a8, 2));
+
         String[] a9 = {"LHR", "HRW", "HTR", "LHW"};
-        questions.add(new QuestionImpl("Heathrow airport has which airport code?", a9, 0));
-        
+        questionsRand.add(new QuestionImpl(list.get(8),"Heathrow airport has which airport code?", a9, 0));
+
         String[] a10 = {"Sense", "Touch", "Sight", "Hearing"};
-        questions.add(new QuestionImpl("If something is tactile, which sense does it relate to?", a10, 1));
+        questionsRand.add(new QuestionImpl(list.get(9),"If something is tactile, which sense does it relate to?", a10, 1));
+        
+        int i=1;
+        while(i<6){
+            for(QuestionImpl q:questionsRand){
+                if(q.getQuestionNumber() == i){
+                    questions.add(q);
+                }
+            }
+            i++;
+        }
         
     }
     

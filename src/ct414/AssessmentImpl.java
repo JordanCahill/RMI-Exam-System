@@ -22,7 +22,7 @@ public class AssessmentImpl implements Assessment, Serializable {
     private String info;
     private Date closingDate;
     private String courseCode;
-    private int[] selectedAnswers;
+    private int[] selectedAnswers=new int[10];
     private int ID;
     
     public AssessmentImpl(String inf, String cCode, int ID){
@@ -40,15 +40,11 @@ public class AssessmentImpl implements Assessment, Serializable {
         QuestionBank qBank = new QuestionBank();
         
         ArrayList<QuestionImpl> allQs = qBank.getQuestionBank();
-        Collections.shuffle(allQs);
         int n = 0;
-        while (n < 4){
+        while (n < 5){
             questions.add(allQs.get(n));
             n++;
-        }
-        
-        
-        
+        }       
     }
     
     
@@ -82,7 +78,7 @@ public class AssessmentImpl implements Assessment, Serializable {
 
     @Override
     public int getSelectedAnswer(int questionNumber) {
-        return selectedAnswers[questionNumber-1];
+        return selectedAnswers[questionNumber];
     }
 
     @Override
@@ -93,7 +89,7 @@ public class AssessmentImpl implements Assessment, Serializable {
     @Override
     public Question getQuestion(int questionNumber) throws InvalidQuestionNumber {
         if (questionNumber<(questions.size())){
-            return questions.get(questionNumber-1);
+            return questions.get(questionNumber);
         }else throw new InvalidQuestionNumber();
     }
 
