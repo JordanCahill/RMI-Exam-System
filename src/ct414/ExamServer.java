@@ -2,6 +2,8 @@
 
 package ct414;
 
+import ct414.exceptions.NoMatchingAssessment;
+import ct414.exceptions.UnauthorizedAccess;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;

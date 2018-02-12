@@ -1,6 +1,8 @@
 
 package ct414;
 
+import ct414.exceptions.InvalidOptionNumber;
+import ct414.exceptions.InvalidQuestionNumber;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +16,7 @@ import java.util.List;
  * @author Jordan Cahill
  * @date 05-Feb-2018
  */
-public class AssessmentImpl implements Assessment, Serializable {
+public class MCQExam implements Assessment, Serializable {
 
     
 
@@ -25,7 +27,7 @@ public class AssessmentImpl implements Assessment, Serializable {
     private int[] selectedAnswers=new int[10];
     private int ID;
     
-    public AssessmentImpl(String inf, String cCode, int ID){
+    public MCQExam(String inf, String cCode, int ID){
         
         this.info = inf;
         this.courseCode = cCode;
@@ -39,7 +41,7 @@ public class AssessmentImpl implements Assessment, Serializable {
         
         QuestionBank qBank = new QuestionBank();
         
-        ArrayList<QuestionImpl> allQs = qBank.getQuestionBank();
+        ArrayList<MCQQuestion> allQs = qBank.getQuestionBank();
         int n = 0;
         while (n < 5){
             questions.add(allQs.get(n));

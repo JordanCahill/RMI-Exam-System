@@ -8,14 +8,14 @@ import java.io.Serializable;
  * @author Jordan Cahill
  * @date 05-Feb-2018
  */
-public class QuestionImpl implements Question, Serializable {
+public class MCQQuestion implements Question, Serializable {
 
     private int questionNum;
     private String question;
     private String[] questionAnswers;
     private int correctAnswer;
     
-    public QuestionImpl(int num, String q, String[] answers, int correctAns){
+    public MCQQuestion(int num, String q, String[] answers, int correctAns){
         this.questionNum=num;
         this.question = q;
         this.questionAnswers = answers;

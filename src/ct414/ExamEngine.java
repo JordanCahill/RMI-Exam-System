@@ -1,6 +1,8 @@
 
 package ct414;
 
+import ct414.exceptions.NoMatchingAssessment;
+import ct414.exceptions.UnauthorizedAccess;
 import static java.lang.System.currentTimeMillis;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -15,7 +17,7 @@ import java.util.List;
 public class ExamEngine implements ExamServer {
 
     private ArrayList<Student> studentList = new ArrayList<>();
-    private ArrayList<AssessmentImpl> assessments = new ArrayList<>();
+    private ArrayList<MCQExam> assessments = new ArrayList<>();
     private ArrayList<String> assessmentNames = new ArrayList<>();
     private HashMap<Integer, Assessment> completedExams = new HashMap<>();
         
@@ -30,8 +32,12 @@ public class ExamEngine implements ExamServer {
         Student s3 = new Student(14424257,"password", "4BLE"); studentList.add(s3);
         Student s4 = new Student(13837257,"pword", "4BLE"); studentList.add(s4);
         
-        AssessmentImpl exam1 = new AssessmentImpl("Quiz 1", "4BP1", 4382); assessments.add(exam1);
-        AssessmentImpl exam2 = new AssessmentImpl("Quiz 2", "4BLE", 3208); assessments.add(exam2);
+        
+        
+        System.out.println("Creating assessments..");
+        MCQExam exam1 = new MCQExam("Quiz 1", "4BP1", 4382); assessments.add(exam1);
+        MCQExam exam2 = new MCQExam("Quiz 2", "4BLE", 3208); assessments.add(exam2);
+        
         
         
     }
@@ -63,8 +69,9 @@ public class ExamEngine implements ExamServer {
 
         try{
             for(Student s: studentList) {
-                if (token==s.getStudentID()){                 
-                    for (AssessmentImpl a: assessments){
+                if (token==s.getStudentID()){      
+                    
+                    for (MCQExam a: assessments){
                             assessmentNames.add(a.getInformation());
                     }
                     if (assessmentNames.isEmpty()){
@@ -88,7 +95,7 @@ public class ExamEngine implements ExamServer {
             for(Student s: studentList) {
                 if (token==s.getStudentID()){
                     String cc = s.getCourseCode();
-                    for (AssessmentImpl a: assessments){
+                    for (MCQExam a: assessments){
                         if (a.getCourseCode().equals(cc)){
                             return a;
                         }
@@ -113,8 +120,7 @@ public class ExamEngine implements ExamServer {
                 }
             } throw new UnauthorizedAccess("Access not granted to student ID");
         } catch (Exception e){
-            System.out.println("here");
-            //throw new RemoteException();
+            e.getMessage();
         }
     }
 

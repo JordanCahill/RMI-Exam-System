@@ -1,9 +1,14 @@
 
 package ct414;
 
+import ct414.exceptions.NoMatchingAssessment;
+import ct414.exceptions.InvalidOptionNumber;
+import ct414.exceptions.InvalidQuestionNumber;
+import ct414.exceptions.UnauthorizedAccess;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -46,9 +51,18 @@ public class ExamClient {
                 }
             }
 
+            List<String> examList = new ArrayList<>();
             while(!completed) {
                 
-                displayAssignments(in, exam, token, studentid);
+                //displayAssignments(in, exam, token, studentid);
+                
+                if (examList.isEmpty()){
+                    examList = exam.getAvailableSummary(token, studentid);
+                    System.out.println(examList);
+                }else{
+                    System.out.println(examList);
+                }
+                
                 Assessment a = startAssignment(in, exam, token, studentid);
                 evaluate(exam, token, studentid, a);
                 System.out.println("\nWould you like to make another submission? (y/n)");
@@ -67,9 +81,15 @@ public class ExamClient {
 
     private static void displayAssignments(Scanner in, ExamServer exam, int token, int studentid) 
             throws UnauthorizedAccess, NoMatchingAssessment, RemoteException {
-        System.out.println("here");
-        List<String> examList = exam.getAvailableSummary(token, studentid);
-        System.out.println(examList);            
+        
+        List<String> examList = null;
+        if (examList.isEmpty()){
+            exam.getAvailableSummary(token, studentid);
+            System.out.println(examList);
+        }else{
+            System.out.println(examList);
+        }
+                    
     }
 
     private static Assessment startAssignment(Scanner in, ExamServer exam, int token, int studentid) 

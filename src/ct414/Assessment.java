@@ -2,6 +2,8 @@
 
 package ct414;
 
+import ct414.exceptions.InvalidOptionNumber;
+import ct414.exceptions.InvalidQuestionNumber;
 import java.util.Date;
 import java.util.List;
 import java.io.Serializable;

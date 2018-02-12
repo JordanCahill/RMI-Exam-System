@@ -1,4 +1,4 @@
-package ct414;
+package ct414.exceptions;
 
 public class UnauthorizedAccess extends Exception {
 
