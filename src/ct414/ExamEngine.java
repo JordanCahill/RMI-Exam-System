@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class ExamEngine implements ExamServer {
     private HashMap<Integer, Assessment> completedExams = new HashMap<>();
         
     // Constructor is required
-    public ExamEngine() throws RemoteException{
+    public ExamEngine() throws RemoteException, ParseException{
         super();
         
         studentList = new ArrayList<>();
@@ -35,8 +36,9 @@ public class ExamEngine implements ExamServer {
         
         
         System.out.println("Creating assessments..");
-        MCQExam exam1 = new MCQExam("Quiz 1", "4BP1", 4382); assessments.add(exam1);
-        MCQExam exam2 = new MCQExam("Quiz 2", "4BLE", 3208); assessments.add(exam2);
+        MCQExam exam1 = new MCQExam("4BP1 Quiz 1", "4BP1", 4382, 5); assessments.add(exam1);
+        MCQExam exam2 = new MCQExam("4BLE Quiz 1", "4BLE", 3208, 5); assessments.add(exam2);
+        MCQExam exam3 = new MCQExam("4BP1 Quiz 2", "4BP1", 3208, 5); assessments.add(exam3);
         
         
         
@@ -72,7 +74,9 @@ public class ExamEngine implements ExamServer {
                 if (token==s.getStudentID()){      
                     
                     for (MCQExam a: assessments){
+                        if(s.getCourseCode().equals(a.getCourseCode())){
                             assessmentNames.add(a.getInformation());
+                        }
                     }
                     if (assessmentNames.isEmpty()){
                         throw new NoMatchingAssessment("No exam found for student's ID");

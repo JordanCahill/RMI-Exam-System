@@ -4,12 +4,16 @@ package ct414;
 import ct414.exceptions.InvalidOptionNumber;
 import ct414.exceptions.InvalidQuestionNumber;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  *
@@ -26,20 +30,23 @@ public class MCQExam implements Assessment, Serializable {
     private String courseCode;
     private int[] selectedAnswers=new int[10];
     private int ID;
+    private int numQuestions;
     
-    public MCQExam(String inf, String cCode, int ID){
-        
-        this.info = inf;
+    public MCQExam(String name, String cCode, int ID, int numQs) throws ParseException{
+
+        this.info = name;
         this.courseCode = cCode;
         this.ID = ID;
+        this.numQuestions = numQs;
         
         // Set a closing date one week after the assessment object is created
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         c.add(Calendar.DATE, 7);
         this.closingDate = c.getTime();
+
         
-        QuestionBank qBank = new QuestionBank();
+        QuestionBank qBank = new QuestionBank(numQuestions);
         
         ArrayList<MCQQuestion> allQs = qBank.getQuestionBank();
         int n = 0;

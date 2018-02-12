@@ -49,20 +49,9 @@ public class ExamClient {
                     System.out.println(studentid + " has logged in.");
                     loginSuccesful = true;
                 }
-            }
-
-            List<String> examList = new ArrayList<>();
-            while(!completed) {
-                
-                //displayAssignments(in, exam, token, studentid);
-                
-                if (examList.isEmpty()){
-                    examList = exam.getAvailableSummary(token, studentid);
-                    System.out.println(examList);
-                }else{
-                    System.out.println(examList);
-                }
-                
+           
+                displayAssignments(in, exam, token, studentid);
+                   
                 Assessment a = startAssignment(in, exam, token, studentid);
                 evaluate(exam, token, studentid, a);
                 System.out.println("\nWould you like to make another submission? (y/n)");
@@ -82,9 +71,10 @@ public class ExamClient {
     private static void displayAssignments(Scanner in, ExamServer exam, int token, int studentid) 
             throws UnauthorizedAccess, NoMatchingAssessment, RemoteException {
         
-        List<String> examList = null;
+        System.out.println("Your available assessments are listed below:");
+        List<String> examList = new ArrayList<>();
         if (examList.isEmpty()){
-            exam.getAvailableSummary(token, studentid);
+            examList = exam.getAvailableSummary(token, studentid);
             System.out.println(examList);
         }else{
             System.out.println(examList);
@@ -96,8 +86,8 @@ public class ExamClient {
                             throws UnauthorizedAccess, NoMatchingAssessment, RemoteException, InvalidQuestionNumber, InvalidOptionNumber {
         
         System.out.println("\nPlease enter the name of the assessment you wish to complete:");
-        String courseCode = in.nextLine();
-        Assessment test = exam.getAssessment(token, studentid, courseCode);
+        String examName = in.nextLine();
+        Assessment test = exam.getAssessment(token, studentid, examName);
         System.out.println("\n" + test.getInformation());
         
         boolean submitted = false;
