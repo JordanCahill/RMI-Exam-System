@@ -77,6 +77,7 @@ public class MCQExam implements Assessment, Serializable {
         }
     }
     
+    // Return a question object based on the question number param
     @Override
     public Question getQuestion(int questionNumber) throws InvalidQuestionNumber {
         try{
