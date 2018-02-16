@@ -70,8 +70,8 @@ public class MCQExam implements Assessment, Serializable {
             if (questionNumber <= questions.size() && questionNumber > 0){ // If chosen question is valid
                 if (optionNumber <= 4 & optionNumber > 0) { // If chosen answer is valid
                     selectedAnswers[questionNumber-1] = optionNumber; // Store the answer
-                }else throw new InvalidOptionNumber();
-            }else throw new InvalidQuestionNumber();
+                }else throw new InvalidOptionNumber("Error selecting answer: Option does not exist");
+            }else throw new InvalidQuestionNumber("Error selecting answer: Question does not exist");
         }catch(InvalidOptionNumber | InvalidQuestionNumber e){
             System.out.println(e.getMessage());
         }
@@ -82,7 +82,7 @@ public class MCQExam implements Assessment, Serializable {
         try{
             if (questionNumber<(questions.size())){
                 return questions.get(questionNumber);
-            }else throw new InvalidQuestionNumber();
+            }else throw new InvalidQuestionNumber("Error retrieving question: Does not exist");
         }
         catch(InvalidQuestionNumber e){
             return null; 
