@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- *
+ * Class used to create and store questions
+ * Keeps overall project a little neater
+ * Questions randomly added to MCQExam objects upon creation
+ * 
  * @author Jordan Cahill
  * @date 08-Feb-2018
  */
-class QuestionBank {
+public class QuestionBank {
     
-    ArrayList<MCQQuestion> questions = new ArrayList<>();
-    ArrayList<MCQQuestion> questionsRand = new ArrayList<>();
-    private int totalNumQuestions = 10;
-    private int numQuestions;
+    ArrayList<MCQQuestion> questions = new ArrayList<>(); // Final array to return to MCQExam class
+    ArrayList<MCQQuestion> questionsRand = new ArrayList<>(); // Array of questions in random order
+    private int totalNumQuestions = 10; // Total number of questions, needs to be update when one is added
+    private int numQuestions; // Number of questions to add to array
     
     public QuestionBank(int numQs){
         numQuestions = numQs;
@@ -22,20 +25,34 @@ class QuestionBank {
         
     }
     
+    // Return the array to an MCQExam object
     public ArrayList<MCQQuestion> getQuestionBank(){
         return questions;
     }
 
+    /**
+     * Method used to create an ArrayList of random preset questions
+     * NOTE: If question is added, global "totalNumQuestions" must be updated
+     */
     private void CreateQuestionBank() {
         
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for (int i=1; i<totalNumQuestions+1; i++) { // 
+        // Add each integer up to the value of "totalNumQuestions" to be used as an index
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i=1; i<totalNumQuestions+1; i++) { 
             list.add(i);
         }
-        Collections.shuffle(list);
+        Collections.shuffle(list); // Shuffle the index
         
         int numQ=0;
         
+        /***********************************************************************
+
+         For each question:
+            - Define the answers as a String array
+            - Use numQ as a random index
+            - Add MCQQuestion object to questionsRand array
+            - Update numQ index counter
+        */
         String[] a1 = {"Dublin", "Cork", "Belfast", "Galway"}; 
         questionsRand.add(new MCQQuestion(list.get(numQ),"What is the capital of Ireland?", a1, 0)); numQ++;
 
@@ -66,14 +83,19 @@ class QuestionBank {
         String[] a10 = {"Sense", "Touch", "Sight", "Hearing"};
         questionsRand.add(new MCQQuestion(list.get(numQ),"If something is tactile, which sense does it relate to?", a10, 1)); numQ++;
         
+        // *********************************************************************
+        
         int i=1;
-        while(i<numQuestions+1){
+        // Add the first few questions from the randomized array to a new array
+        // Until numQuestions is reached
+        while(i<numQuestions+1){  
             for(MCQQuestion q:questionsRand){
                 if(q.getQuestionNumber() == i){
                     questions.add(q);
+                    // Since questionsRand is already randomized, questions will be too
                 }
             }
-            i++;
+            i++; // Update counter
         }
         
     }

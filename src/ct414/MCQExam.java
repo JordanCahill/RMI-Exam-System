@@ -4,33 +4,27 @@ package ct414;
 import ct414.exceptions.InvalidOptionNumber;
 import ct414.exceptions.InvalidQuestionNumber;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
 
 /**
- *
+ * Implementation of Assessment interface
+ * Assigns a number of random questions upon creation of constructor
+ * 
  * @author Jordan Cahill
  * @date 05-Feb-2018
  */
 public class MCQExam implements Assessment, Serializable {
 
-    
-
-    private ArrayList<Question> questions = new ArrayList<>();
-    private String info;
-    private Date closingDate;
-    private String courseCode;
-    private int[] selectedAnswers=new int[10];
-    private int ID;
-    private int numQuestions;
+    private ArrayList<Question> questions = new ArrayList<>(); // Store MCQQuestion objects
+    private String info; // Exam name
+    private Date closingDate; // Closing date (Allows 1 week)
+    private String courseCode; // Associated course code
+    private int ID; // Associate student ID
+    private int numQuestions; // Total number of questions
+    private int[] selectedAnswers=new int[10]; // Store answers for a particular submission
     
     public MCQExam(String name, String cCode, int ID, int numQs) throws ParseException{
 
@@ -45,12 +39,13 @@ public class MCQExam implements Assessment, Serializable {
         c.add(Calendar.DATE, 7);
         this.closingDate = c.getTime();
 
-        
+        // Create a QuestionBank object to retrieve a number of random questions
         QuestionBank qBank = new QuestionBank(numQuestions);
         
+        // Create and store the questions
         ArrayList<MCQQuestion> allQs = qBank.getQuestionBank();
         int n = 0;
-        while (n < 5){
+        while (n < numQuestions){
             questions.add(allQs.get(n));
             n++;
         }       
@@ -58,52 +53,71 @@ public class MCQExam implements Assessment, Serializable {
     
     
     
-    @Override
-    public String getInformation() {
-        return this.info;
-    }
-
-    @Override
-    public Date getClosingDate() {
-        return this.closingDate;
-    }
-
-    @Override
-    public ArrayList<Question> getQuestions() {
-        return this.questions;
-    }
 
 
+
+    /**
+     * Allows the user to select an answer for a specific questions
+     * 
+     * @param questionNumber Index of the question for this MCQExam
+     * @param optionNumber Index of the selected answer
+     * @throws InvalidQuestionNumber
+     * @throws InvalidOptionNumber 
+     */
     @Override
     public void selectAnswer(int questionNumber, int optionNumber) throws InvalidQuestionNumber, InvalidOptionNumber {
-        if (questionNumber <= questions.size() && questionNumber > 0){
-            if (optionNumber <= 4 & optionNumber > 0) {
-                selectedAnswers[questionNumber-1] = optionNumber;
-            }else throw new InvalidOptionNumber();
-        }else throw new InvalidQuestionNumber();
-        //String[] possibleAnswers = this.questions.get(questionNumber).getAnswerOptions();
-        //selectedAns = possibleAnswers[optionNumber];
+        try{
+            if (questionNumber <= questions.size() && questionNumber > 0){ // If chosen question is valid
+                if (optionNumber <= 4 & optionNumber > 0) { // If chosen answer is valid
+                    selectedAnswers[questionNumber-1] = optionNumber; // Store the answer
+                }else throw new InvalidOptionNumber();
+            }else throw new InvalidQuestionNumber();
+        }catch(InvalidOptionNumber | InvalidQuestionNumber e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    @Override
+    public Question getQuestion(int questionNumber) throws InvalidQuestionNumber {
+        try{
+            if (questionNumber<(questions.size())){
+                return questions.get(questionNumber);
+            }else throw new InvalidQuestionNumber();
+        }
+        catch(InvalidQuestionNumber e){
+            return null; 
+        }
     }
 
+    // ***** Class getters *****
     @Override
     public int getSelectedAnswer(int questionNumber) {
         return selectedAnswers[questionNumber];
     }
-
     @Override
     public int getAssociatedID() {
         return this.ID;
     }
-
     @Override
-    public Question getQuestion(int questionNumber) throws InvalidQuestionNumber {
-        if (questionNumber<(questions.size())){
-            return questions.get(questionNumber);
-        }else throw new InvalidQuestionNumber();
+    public String getInformation() {
+        return this.info;
     }
-
+    @Override
+    public Date getClosingDate() {
+        return this.closingDate;
+    }
+    @Override
+    public ArrayList<Question> getQuestions() {
+        return this.questions;
+    }
     String getCourseCode() {
         return this.courseCode;
     }
-
+    String getName(){
+        return this.info;
+    }
+    int getNumQuestions(){
+        return this.numQuestions;
+    }
+    // ***** End of getters *****
 }

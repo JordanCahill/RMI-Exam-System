@@ -2,6 +2,7 @@
 package ct414;
 
 /**
+ * Object used to store student information on the server
  *
  * @author Jordan Cahill
  * @date 05-Feb-2018
@@ -20,14 +21,13 @@ class Student {
         
     }
 
+    // ***** Getters *****
     public int getStudentID() {
         return studentID;
     }
-
     public String getPassword() {
         return password;
     }
-    
     public String getCourseCode(){
         return courseCode;
     }
