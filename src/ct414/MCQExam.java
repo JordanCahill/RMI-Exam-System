@@ -50,11 +50,6 @@ public class MCQExam implements Assessment, Serializable {
             n++;
         }       
     }
-    
-    
-    
-
-
 
     /**
      * Allows the user to select an answer for a specific questions
