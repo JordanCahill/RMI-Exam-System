@@ -61,13 +61,15 @@ public class ExamClient {
            
                 displayAssignments(exam, token, studentid); // Display assignments based on the students course code
                 Assessment a = startAssignment(in, exam, token, studentid); // User selects an assignment and begins
-                evaluate(exam, token, studentid, a); // Assignment is graded and printed
+                
                 
                 System.out.println("\nWould you like to make another submission? (y/n)");
                 String resubmit = in.nextLine();
                 if(resubmit.equals("n")) {
+                    evaluate(exam, token, studentid, a); // Assignment is graded and printed
                     completed = true; // Break out of loop 
                 }
+                
             }
 
         // Finish program by logging the student out
