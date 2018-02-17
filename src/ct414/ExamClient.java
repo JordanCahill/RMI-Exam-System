@@ -160,6 +160,7 @@ public class ExamClient {
             System.out.println("Type 'y' to submit, or anything else to retry..");
             String query = in.nextLine();
             if(query.equals("y")){ // User has decided to submit
+                System.out.println("Assessment submitted successfully.");
                 submitted = true;
             }
         }
