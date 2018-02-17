@@ -25,8 +25,14 @@ public class ExamClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        // Set up a security manager
+        if (System.getSecurityManager() == null) { 
+            System.setSecurityManager(new SecurityManager());
+        }
+        
         try {
-            
+                        
             // Set up the RMI registry and search for the server
             String name = "ExamServer";
             Registry registry = LocateRegistry.getRegistry("localhost");
