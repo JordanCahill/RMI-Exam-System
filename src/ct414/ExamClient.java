@@ -5,6 +5,7 @@ import ct414.exceptions.NoMatchingAssessment;
 import ct414.exceptions.InvalidOptionNumber;
 import ct414.exceptions.InvalidQuestionNumber;
 import ct414.exceptions.UnauthorizedAccess;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -27,6 +28,7 @@ public class ExamClient {
     public static void main(String[] args) {
         
         // Set up a security manager
+        System.setProperty("java.security.policy", "global.policy");
         if (System.getSecurityManager() == null) { 
             System.setSecurityManager(new SecurityManager());
         }
@@ -81,8 +83,8 @@ public class ExamClient {
         // Finish program by logging the student out
         System.out.println("\nStudent "+ studentid + " has logged out");
         }
-        catch (Exception e) {
-            System.err.println("Client exception");
+        catch (InvalidOptionNumber | InvalidQuestionNumber | NoMatchingAssessment | UnauthorizedAccess | NumberFormatException | NotBoundException | RemoteException e) {
+            System.err.println(e.getMessage());
         }
     }
 

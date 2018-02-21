@@ -41,6 +41,7 @@ public class ExamEngine implements ExamServer {
         Student s2 = new Student(14483208,"qwerty","4BP1"); studentList.add(s2);
         Student s3 = new Student(14424257,"password", "4BLE"); studentList.add(s3);
         Student s4 = new Student(13837257,"pword", "4BLE"); studentList.add(s4);
+        Student s5 = new Student(2,"b", "4BLM"); studentList.add(s5);
         
         // Create assessments for different course codes
         if (assessments.isEmpty()){ // Prevents duplicate exams being created on the same server
@@ -178,6 +179,13 @@ public class ExamEngine implements ExamServer {
     }
 
     public static void main(String[] args) {
+        
+        // Set up a security manager
+        System.setProperty("java.security.policy", "global.policy");
+        if (System.getSecurityManager() == null) { 
+            System.setSecurityManager(new SecurityManager());
+        }
+        
         try {
             // Set up the server
             String name = "ExamServer";
